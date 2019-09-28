@@ -3,7 +3,10 @@
 <div class="row">
     <div class="col-md-6 mx-auto">
         <div class="card card-body bg-light mt-5">
-            <h2>Create An Account</h2>
+            <?php
+//            var_dump($_SESSION);
+            flash('register_success');?>
+            <h2>Log in</h2>
             <p>Please fill your credentials to log in</p>
             <form action="<?php echo URLROOT?>/users/login" method="post">
                 <div class="form-group">
