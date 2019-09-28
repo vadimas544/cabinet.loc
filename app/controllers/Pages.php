@@ -11,7 +11,7 @@ class Pages extends Controller
 	{
         $posts = $this->postModel->getPosts();
 		$data = [
-			'title' => 'Welcome on index',
+			'title' => 'My Cabinet',
             'posts' => $posts,
 		];
 		$this->view('pages/index', $data);
