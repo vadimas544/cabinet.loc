@@ -152,43 +152,45 @@ class Users extends Controller
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $data = [
-                'email' => trim($_POST['email']),
+                'phone' => trim($_POST['phone']),
                 'password' => trim($_POST['password']),
-                'email_error' => '',
+                'phone_error' => '',
                 'password_error' => '',
             ];
 
-            //Validate email
-            if(empty($data['email'])){
-                $data['email_error'] = 'Please enter email!';
-            }
+          
 
-            //Check for user email
-            if($this->userModel->findUserByEmail($data['email'])){
+            //Check for user phone
+            if($this->userModel->findUserByPhone($data['phone'])){
                 //User found
             }else{
-                $data['email_error'] = 'No user found';
+                $data['phone_error'] = 'Пользователя с таким номером не найдено';
+            }
+            
+              //Validate phone
+            if(empty($data['phone'])){
+                $data['phone_error'] = 'Пожалуйста введите номер телефона!';
             }
 
             //Validate Password
             if(empty($data['password'])){
-                $data['password_error'] = 'Please enter password!';
+                $data['password_error'] = 'Пожалуйста введите пароль!';
             }
 
             //Make sure errors are empty
 
-            if(empty($data['email_error']) && empty($data['password_error'])){
+            if(empty($data['phone_error']) && empty($data['password_error'])){
                 //Validated
                 //Check and set logged in user
 
-                $loggedInUser = $this->userModel->login($data['email'], $data['password']);
+                $loggedInUser = $this->userModel->login($data['phone'], $data['password']);
 
                 if($loggedInUser){
                     //Create Session
                     $this->createUserSession($loggedInUser);
 
                 }else{
-                    $data['password_error'] = 'Password incorrect';
+                    $data['password_error'] = 'Пароль неверный!';
                     $this->view('users/login', $data);
                 }
 
@@ -199,9 +201,9 @@ class Users extends Controller
         }else{
             //Init data
             $data = [
-                'email' => '',
+                'phone' => '',
                 'password' => '',
-                'email_error' => '',
+                'phone_error' => '',
                 'password_error' => '',
             ];
 
@@ -216,7 +218,7 @@ class Users extends Controller
     {
         $_SESSION['user_id'] = $user->id;
         $_SESSION['user_name'] = $user->name;
-        $_SESSION['user_email'] = $user->email;
+        $_SESSION['user_phone'] = $user->phone;
 
         redirect('pages/index');
 
@@ -224,7 +226,7 @@ class Users extends Controller
 
     public function logout(){
         unset($_SESSION['user_id']);
-        unset($_SESSION['user_email']);
+        unset($_SESSION['user_phone']);
         unset($_SESSION['user_name']);
         session_destroy();
         redirect('users/login');

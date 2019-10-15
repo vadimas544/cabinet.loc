@@ -64,10 +64,10 @@ class User
 
     //Login User
 
-    public function login($email, $password)
+    public function login($phone, $password)
     {
-        $this->db->query('SELECT * FROM users WHERE email= :email');
-        $this->db->bind('email', $email);
+        $this->db->query('SELECT * FROM users WHERE phone= :phone');
+        $this->db->bind('phone', $phone);
 
         $row =$this->db->single();
 
