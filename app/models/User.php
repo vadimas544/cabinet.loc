@@ -24,13 +24,33 @@ class User
             return false;
         }
     }
+    
+    //find user by phone
+    public function findUserByPhone($phone)
+    {
+        $this->db->query('SELECT * FROM users WHERE phone= :phone');
+        $this->db->bind('phone', $phone);
+
+        $row =$this->db->single();
+
+        //Check row
+        if($this->db->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     //Register user
     public function register($data)
     {
-        $this->db->query('INSERT INTO users (name, email, password) VALUES(:name, :email, :password)');
+        $this->db->query('INSERT INTO users (phone, name, surname, patronymic, birthday, email, password) VALUES(:phone, :name, :surname,:patronymic, :birthday,  :email, :password)');
         //Bind values
+        $this->db->bind(':phone', $data['phone']);
         $this->db->bind(':name', $data['name']);
+        $this->db->bind(':surname', $data['surname']);
+        $this->db->bind(':patronymic', $data['patronymic']);
+        $this->db->bind(':birthday', $data['birthday']);
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':password', $data['password']);
 
