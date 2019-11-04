@@ -2,8 +2,8 @@
 
 //DB Params
 define('DB_HOST', 'localhost');
-define('DB_USER', 'vadim');
-define('DB_PASS', 'trrytr03');
+define('DB_USER', 'root');
+define('DB_PASS', '');
 define('DB_NAME', 'cabinet');
 
 //AppRoot
