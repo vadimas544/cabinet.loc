@@ -8,6 +8,9 @@ class Users extends Controller
         $this->userModel = $this->model('User');
     }
 
+    public function index(){
+
+    }
     public function register()
     {
         //Check for POST
@@ -103,8 +106,9 @@ class Users extends Controller
 
                 //Register User
                 if( $this->userModel->register($data) ){
+                    sendSms($data['phone']);
                     flash('register_success', 'Вы успешно зарегистрировались и можете войти!');
-                    redirect('users/login');
+                    redirect('users/sms');
 
                 }else{
                     die('Что-то пошло не так...');
@@ -214,6 +218,32 @@ class Users extends Controller
         }
     }
 
+    public function recovery(){
+
+            //Load view
+            $this->view('users/recovery');
+    }
+
+    public function sms(){
+
+        //Check for POST
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        //Process Form
+
+        }else {
+            //Init data
+            $data = [
+                'password' => '',
+                'password_error' => '',
+            ];
+
+
+            //Load view
+            $this->view('users/sms', $data);
+        }
+    }
+
+
     public function createUserSession($user)
     {
         $_SESSION['user_id'] = $user->id;
@@ -222,6 +252,13 @@ class Users extends Controller
 
         redirect('pages/index');
 
+    }
+
+    public function cabinet(){
+
+
+
+        $this->view('users/cabinet');
     }
 
     public function logout(){

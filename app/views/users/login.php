@@ -20,6 +20,7 @@
                     <input type="password" name="password" class="form-control form-control-lg <?php echo (!empty($data['password_error'])) ? 'is-invalid' : ''?>"
                            value="<?php echo $data['password']; ?>">
                     <span class="invalid-feedback"><?php echo $data['password_error']; ?></span>
+                    <span>Забыли пароль? - </span><a href="<?php echo URLROOT?>/users/recovery">Восстановление пароля</a>
                 </div>
 
                 <div class="row">

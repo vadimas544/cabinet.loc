@@ -37,21 +37,23 @@
                         <span class="invalid-feedback"><?php echo $data['birthday_error']; ?></span>
                     </div>
                     <div class="form-group">
-                        <label for="name">Email: <sup>*</sup></label>
+                        <label for="email">Email: <sup>*</sup></label>
                         <input type="text" name="email" class="form-control form-control-lg <?php echo (!empty($data['email_error'])) ? 'is-invalid' : ''?>"
                                value="<?php echo $data['email']; ?>">
                         <span class="invalid-feedback"><?php echo $data['email_error']; ?></span>
                     </div>
-                    <div class="form-group">
-                        <label for="name">Пароль: <sup>*</sup></label>
-                        <input type="password" name="password" class="form-control form-control-lg <?php echo (!empty($data['password_error'])) ? 'is-invalid' : ''?>"
+                    <div class="form-group group">
+                        <label for="password">Пароль: <sup>*</sup></label>
+                        <input type="password" name="password"  class="form-control form-control-lg password <?php echo (!empty($data['password_error'])) ? 'is-invalid' : ''?>"
                                value="<?php echo $data['password']; ?>">
+                        <input type="checkbox" class="password-show">Показать пароль
                         <span class="invalid-feedback"><?php echo $data['password_error']; ?></span>
                     </div>
-                    <div class="form-group">
-                        <label for="name">Повторите введенный пароль: <sup>*</sup></label>
-                        <input type="password" name="confirm_password" class="form-control form-control-lg <?php echo (!empty($data['confirm_password_error'])) ? 'is-invalid' : ''?>"
+                    <div class="form-group group">
+                        <label for="confirm password">Повторите введенный пароль: <sup>*</sup></label>
+                        <input type="password" name="confirm_password" class="form-control form-control-lg password <?php echo (!empty($data['confirm_password_error'])) ? 'is-invalid' : ''?>"
                                value="<?php echo $data['confirm_password']; ?>">
+                        <input type="checkbox" class="password-show">Показать пароль
                         <span class="invalid-feedback"><?php echo $data['confirm_password_error']; ?></span>
                     </div>
 
