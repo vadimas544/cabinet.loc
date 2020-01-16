@@ -165,11 +165,11 @@ class Users extends Controller
           
 
             //Check for user phone
-            if($this->userModel->findUserByPhone($data['phone'])){
-                //User found
-            }else{
-                $data['phone_error'] = 'Пользователя с таким номером не найдено';
-            }
+//            if($this->userModel->findUserByPhone($data['phone'])){
+//                //User found
+//            }else{
+//                $data['phone_error'] = 'Пользователя с таким номером не найдено';
+//            }
             
               //Validate phone
             if(empty($data['phone'])){
@@ -181,26 +181,33 @@ class Users extends Controller
                 $data['password_error'] = 'Пожалуйста введите пароль!';
             }
 
+            //Check that password is not empty
+            if($this->userModel->checkPassword($data['phone'])){
+                //Password is be
+            }else{
+                $data['password_error'] = 'Такого пользователя нет. Нужно пройти процедуру регистрации!';
+            }
+
             //Make sure errors are empty
 
-            if(empty($data['phone_error']) && empty($data['password_error'])){
-                //Validated
-                //Check and set logged in user
-
-                $loggedInUser = $this->userModel->login($data['phone'], $data['password']);
-
-                if($loggedInUser){
-                    //Create Session
-                    $this->createUserSession($loggedInUser);
-
-                }else{
-                    $data['password_error'] = 'Пароль неверный!';
-                    $this->view('users/login', $data);
-                }
-
-            }else{
-                $this->view('users/login', $data);
-            }
+//            if(empty($data['phone_error']) && empty($data['password_error'])){
+//                //Validated
+//                //Check and set logged in user
+//
+//                $loggedInUser = $this->userModel->login($data['phone'], $data['password']);
+//
+//                if($loggedInUser){
+//                    //Create Session
+//                    $this->createUserSession($loggedInUser);
+//
+//                }else{
+//                    $data['password_error'] = 'Пароль неверный!';
+//                    $this->view('users/login', $data);
+//                }
+//
+//            }else{
+//                $this->view('users/login', $data);
+//            }
 
         }else{
             //Init data
