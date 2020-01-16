@@ -6,12 +6,12 @@
  *
  *   php curl.php
  */
-$login = 'test';
-$password = '123456'; 
+$login = 'test2';
+$password = '654321';
 
 $data = [
 	'request' => [
-		'barcode' => '0001000000816'
+		'barcode' => '300001'
 	]
 ];
 
@@ -28,10 +28,6 @@ curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 //// Send POST request instead of GET and transfer data
 curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 curl_setopt($curl, CURLOPT_USERPWD, "$login:$password");
-
-$postData = array(
-	'barcode' => '0001000000813'
-);
 
 curl_setopt($curl, CURLOPT_POST, true);
 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
