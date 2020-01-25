@@ -157,36 +157,34 @@ class Users extends Controller
 
             $data = [
                 'phone' => trim($_POST['phone']),
-                'password' => trim($_POST['password']),
+//                'password' => trim($_POST['password']),
                 'phone_error' => '',
-                'password_error' => '',
+//                'password_error' => '',
             ];
 
-          
-
-            //Check for user phone
-//            if($this->userModel->findUserByPhone($data['phone'])){
-//                //User found
-//            }else{
-//                $data['phone_error'] = 'Пользователя с таким номером не найдено';
-//            }
-            
               //Validate phone
             if(empty($data['phone'])){
                 $data['phone_error'] = 'Пожалуйста введите номер телефона!';
             }
 
-            //Validate Password
-            if(empty($data['password'])){
-                $data['password_error'] = 'Пожалуйста введите пароль!';
+            //Check for user phone
+            if($this->userModel->findUserByPhone($data['phone'])){
+                //User found
+            }else{
+                $data['phone_error'] = 'Пользователя с таким номером не найдено';
             }
 
+            //Validate Password
+//            if(empty($data['password'])){
+//                $data['password_error'] = 'Пожалуйста введите пароль!';
+//            }
+
             //Check that password is not empty
-            if($this->userModel->checkPassword($data['phone'])){
-                //Password is be
-            }else{
-                $data['password_error'] = 'Такого пользователя нет. Нужно пройти процедуру регистрации!';
-            }
+//            if($this->userModel->checkPassword($data['phone'])){
+//                //Password is be
+//            }else{
+//                $data['password_error'] = 'Такого пользователя нет. Нужно пройти процедуру регистрации!';
+//            }
 
             //Make sure errors are empty
 
@@ -213,9 +211,9 @@ class Users extends Controller
             //Init data
             $data = [
                 'phone' => '',
-                'password' => '',
+//                'password' => '',
                 'phone_error' => '',
-                'password_error' => '',
+//                'password_error' => '',
             ];
 
 

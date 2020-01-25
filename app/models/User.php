@@ -43,10 +43,15 @@ class User
 //        }
 //    }
 
-    public function checkPassword($phone){
-        $this->api->info($phone);
+    public function findUserByPhone($phone){
+        $this->api->find($phone);
         var_dump($this->api);
     }
+
+//    public function checkPassword($phone){
+//        $this->api->info($phone);
+//        var_dump($this->api);
+//    }
 
     //Register user
 //    public function register($data)

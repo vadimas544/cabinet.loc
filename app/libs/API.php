@@ -13,12 +13,12 @@ class API {
     public $url = API_URL;
     public $user = API_USER;
     public $pass = API_PASS;
-    public $api;
 
     public function update(){
 
     }
-    public function info($phone){
+
+    public function find($phone){
         $data = [
             'request' => [
                 'phone' => $phone
@@ -52,6 +52,10 @@ class API {
         else {
             echo $output;
         }
+    }
+
+    public function info($phone){
+
     }
     public function account(){
 
