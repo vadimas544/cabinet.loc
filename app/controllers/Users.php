@@ -41,63 +41,59 @@ class Users extends Controller
 
             //Validate phone
             if(empty($data['phone'])){
-                $data['phone_error'] = 'Пожалуйста введите телефон!';
-            } else{
-                //Check phone in DB
-                if($this->userModel->findUserByPhone($data['phone'])){
-                    $data['phone_error'] = 'Такой номер уже используется!';
-                }
+                $data['phone_error'] = 'Будь-ласка введіть телефон!';
             }
+//            else{
+//                //Check phone in DB
+////                if($this->userModel->findUserByPhone($data['phone'])){
+////                    $data['phone_error'] = 'Такой номер уже используется!';
+////                }
+//            }
             
             //Validate email
-            if(empty($data['email'])){
-                $data['email_error'] = 'Пожалуйста введите email!';
-            } else{
-                //Check email in DB
-                if($this->userModel->findUserByEmail($data['email'])){
-                    $data['email_error'] = 'Такой email уже используется!';
-                }
-            }
+//            if(empty($data['email'])){
+//                $data['email_error'] = 'Пожалуйста введите email!';
+//            }
 
             //Validate Name
             if(empty($data['name'])){
-                $data['name_error'] = 'Пожалуйста введите имя!';
+                $data['name_error'] = 'Будь-ласка введіть ім\'\я';
             }
             
             //Validate Surname
             if(empty($data['surname'])){
-                $data['surname_error'] = 'Пожалуйста введите фамилию!';
+                $data['surname_error'] = 'Будь-ласка введіть прізвище!';
             }
             
-            //Validate Patronymic
-            if(empty($data['patronymic'])){
-                $data['patronymic_error'] = 'Пожалуйста введите отчество!';
-            }
+//            //Validate Patronymic
+//            if(empty($data['patronymic'])){
+//                $data['patronymic_error'] = 'Пожалуйста введите отчество!';
+//            }
             
             //Validate Birthday
-            if(empty($data['birthday'])){
-                $data['birthday_error'] = 'Пожалуйста введите дату рождения!';
-            }
+//            if(empty($data['birthday'])){
+//                $data['birthday_error'] = 'Пожалуйста введите дату рождения!';
+//            }
 
             //Validate Password
             if(empty($data['password'])){
-                $data['password_error'] = 'Пожалуйста введите пароль!';
+                $data['password_error'] = 'Будь-ласка введіть пароль!';
             }elseif (strlen($data['password']) < 8){
-                $data['password_error'] = 'Пароль должен быть больше 8 символов!';
+                $data['password_error'] = 'Пароль повинен бути більше 8 символів!';
             }
 
             //Validate confirm password
             if(empty($data['confirm_password'])){
-                $data['confirm_password_error'] = 'Пожалуйста подтвердите пароль!';
+                $data['confirm_password_error'] = 'Будь-ласка підтвердіть пароль!';
             } else{
                 if($data['password'] != $data['confirm_password']){
-                    $data['confirm_password_error'] = 'Пароли не совпадают!';
+                    $data['confirm_password_error'] = 'Паролі не співпадають!';
                 }
             }
 
             //Make sure errors are empty
 
-            if(empty($data['phone_error']) && empty($data['name_error']) && empty($data['surname_error']) && empty($data['patronymic_error']) && empty($data['birthday_error']) && empty($data['email_error']) && empty($data['password_error']) && empty($data['confirm_password_error'])){
+            if(empty($data['phone_error']) && empty($data['name_error']) && empty($data['surname_error'])   && empty($data['password_error']) && empty($data['confirm_password_error'])){
 
                 //Validated
 
@@ -107,11 +103,11 @@ class Users extends Controller
                 //Register User
                 if( $this->userModel->register($data) ){
                     sendSms($data['phone']);
-                    flash('register_success', 'Вы успешно зарегистрировались и можете войти!');
+                    flash('register_success', 'Вы успішно зареєструвались і можете увійти!');
                     redirect('users/sms');
 
                 }else{
-                    die('Что-то пошло не так...');
+                    die('Щось пішло не так...');
                 }
 
 

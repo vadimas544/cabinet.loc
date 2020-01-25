@@ -17,4 +17,4 @@ define('APPROOT', dirname(dirname(__FILE__)));
 //UrlRoot
 define('URLROOT', 'http://cabinet.loc');
 //Sitename
-define('SITENAME', 'Admin Page');
+define('SITENAME', 'CITI MARKET');
