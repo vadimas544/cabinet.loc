@@ -51,7 +51,13 @@ class Users extends Controller
 //                }
 //            }
 
-            $this->userModel->findUserByPhone($data['phone']);
+            //If this number we have in database
+//            if($this->userModel->checkUserPhone($data['phone'])){
+//                //Then we update all fields
+//
+//            }
+
+
             
             //Validate email
 //            if(empty($data['email'])){
@@ -103,13 +109,22 @@ class Users extends Controller
                 //Hash Password
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
-                //Register User
-                if( $this->userModel->register($data) ){
-                    sendSms($data['phone']);
-                    flash('register_success', 'Вы успішно зареєструвались і можете увійти!');
-                    redirect('users/sms');
+                //Authentication by SMS
+                if($this->userModel->sendSms($data['phone'])){
+                    //Register(update) user in database
+                    if($this->userModel->update($data)){
 
-                }else{
+                    }
+                }
+
+                //Register User
+//                if( $this->userModel->register($data) ){
+//                    sendSms($data['phone']);
+//                    flash('register_success', 'Вы успішно зареєструвались і можете увійти!');
+//                    redirect('users/sms');
+//
+//                }
+                else{
                     die('Щось пішло не так...');
                 }
 
@@ -228,24 +243,8 @@ class Users extends Controller
             $this->view('users/recovery');
     }
 
-    public function sms(){
-
-        //Check for POST
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        //Process Form
-
-        }else {
-            //Init data
-            $data = [
-                'password' => '',
-                'password_error' => '',
-            ];
 
 
-            //Load view
-            $this->view('users/sms', $data);
-        }
-    }
 
 
     public function createUserSession($user)
