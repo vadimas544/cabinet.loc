@@ -21,16 +21,21 @@ class API {
     public function find($phone){
         $data = [
             'request' => [
-                'phone' => $phone
+                'client' => [
+                    'code_client' => '300001',
+                    'phone' => $phone,
+                ]
             ]
         ];
 
         $data = json_encode($data);
+
+
         if(!function_exists('curl_init')) {
             die('cURL not available!');
         }
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, "$this->url/info");
+        curl_setopt($curl, CURLOPT_URL, $this->url);
         curl_setopt($curl, CURLOPT_FAILONERROR, true);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

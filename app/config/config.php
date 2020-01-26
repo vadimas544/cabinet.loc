@@ -10,7 +10,7 @@ define('DB_NAME', 'cabinet');
 
 define('API_USER', 'test2');
 define('API_PASS', '654321');
-define('API_URL', 'https://vpn.infsys.biz:5657/cds/client/');
+define('API_URL', 'https://vpn.infsys.biz:5657/cds/client/update');
 
 //AppRoot
 define('APPROOT', dirname(dirname(__FILE__)));

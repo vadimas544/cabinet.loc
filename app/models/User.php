@@ -43,9 +43,15 @@ class User
 //        }
 //    }
 
+    public function register($data){
+//        var_dump($data);
+//        die();
+    }
+
     public function findUserByPhone($phone){
         $this->api->find($phone);
         var_dump($this->api);
+        die();
     }
 
 //    public function checkPassword($phone){

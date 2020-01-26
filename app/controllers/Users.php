@@ -45,10 +45,13 @@ class Users extends Controller
             }
 //            else{
 //                //Check phone in DB
-////                if($this->userModel->findUserByPhone($data['phone'])){
-////                    $data['phone_error'] = 'Такой номер уже используется!';
-////                }
+//                if($this->userModel->findUserByPhone($data['phone'])){
+//                    $data['phone_error'] = 'Такой номер уже используется!';
+//
+//                }
 //            }
+
+            $this->userModel->findUserByPhone($data['phone']);
             
             //Validate email
 //            if(empty($data['email'])){
