@@ -21,7 +21,7 @@ function sendSms($phone){
 
         $from = 'Pchelka';
         $gen_pass = substr(md5(time()), 0, 4);
-
+        $_SESSION['sms_pass'] = $gen_pass;
         $text = "Ваш пароль: $gen_pass";
 
         $json_value = new stdClass();

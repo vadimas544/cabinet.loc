@@ -44,19 +44,17 @@ class User
 //    }
 
     public function register($data){
-//        var_dump($data);
-//        die();
+
+        sendSms($data['phone']);
+        redirect('users/sms');
     }
 
-    public function checkUserPhone($phone){
-        $this->api->info($phone);
-        var_dump($this->api);
-        die();
-//        return $this->api;
-    }
-
-    public function updateUserInfo($phone){
-
+    public function checkSmsCode($code){
+        if($code == $_SESSION['sms_pass']){
+            return true;
+        } else {
+            return false;
+        }
     }
 
 //    public function checkPassword($phone){
@@ -103,35 +101,6 @@ class User
 //        }
 //    }
 
-    public function sendSms($phone) {
-        session_start();
-        $user = 'itdep@legion2015.com';
-        $password = 'fgtERT587';
-        $url = 'https://esputnik.com/api/v1/message/sms';
-
-        $from = 'Pchelka';
-        $gen_pass = substr(md5(time()), 0, 4);
-        $_SESSION['pass_sms'] = $gen_pass;
-
-        $text = "Ваш новый пароль: $gen_pass";
-
-        $json_value = new stdClass();
-        $json_value->text = $text;
-        $json_value->from = $from;
-        $json_value->phoneNumbers = array($phone);
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($json_value));
-        curl_setopt($ch, CURLOPT_HEADER, 1);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json', 'Content-Type: application/json'));
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch,CURLOPT_USERPWD, $user.':'.$password);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
-        $output = curl_exec($ch);
-        curl_close($ch);
-        //echo($output);
-    }
 
 //    public function sms($phone){
 //

@@ -110,22 +110,13 @@ class Users extends Controller
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
                 //Authentication by SMS
-                if($this->userModel->sendSms($data['phone'])){
-                    //Register(update) user in database
-                    if($this->userModel->update($data)){
-
-                    }
-                }
-
-                //Register User
-//                if( $this->userModel->register($data) ){
+                if( $this->userModel->register($data) ){
 //                    sendSms($data['phone']);
-//                    flash('register_success', 'Вы успішно зареєструвались і можете увійти!');
+//                    flash('register_success', 'Вы успешно зарегистрировались и можете войти!');
 //                    redirect('users/sms');
-//
-//                }
-                else{
-                    die('Щось пішло не так...');
+
+                } else{
+                    die('Что-то пошло не так...');
                 }
 
 
@@ -243,7 +234,47 @@ class Users extends Controller
             $this->view('users/recovery');
     }
 
+    public function sms(){
 
+        //Check for POST
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            //Process form
+
+            //Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'code' => trim($_POST['code']),
+                'code_error' => '',
+            ];
+
+            //Validate code
+            if(empty($data['code'])){
+                $data['code_error'] = 'Введите пожалуйста код';
+            }
+
+            if(empty($data['code_error'])){
+                if($this->userModel->checkSmsCode($data['code'])){
+                    redirect('users/cabinet');
+                } else {
+//                    $data['code_error'] = 'Неверный код!';
+                    die('Что-то пошло не так');
+                }
+            } else {
+                $this->view('users/sms', $data);
+            }
+
+        }else {
+            //Init data
+            $data = [
+                'code' => '',
+                'code_error' => '',
+            ];
+
+            //Load view
+            $this->view('users/sms', $data);
+        }
+    }
 
 
 
