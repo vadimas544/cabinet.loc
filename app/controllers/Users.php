@@ -256,9 +256,9 @@ class Users extends Controller
             if(empty($data['code_error'])){
                 if($this->userModel->checkSmsCode($data['code'])){
                     redirect('users/cabinet');
-                } else {
-//                    $data['code_error'] = 'Неверный код!';
-                    die('Что-то пошло не так');
+                }else{
+                    $data['code_error'] = 'Невірний код!';
+                    $this->view('users/sms', $data);
                 }
             } else {
                 $this->view('users/sms', $data);

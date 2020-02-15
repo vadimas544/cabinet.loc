@@ -5,11 +5,11 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-<!--            <ul class="navbar-nav ml-auto">-->
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="--><?php //echo URLROOT; ?><!--">На головну <span class="sr-only">(current)</span></a>-->
-<!--                </li>-->
-<!--            </ul>-->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo URLROOT; ?>/users/register">На головну <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
 
             <ul class="navbar-nav mr-auto">
                 <?php if(isset($_SESSION['user_id'])): ?>

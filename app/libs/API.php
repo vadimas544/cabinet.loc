@@ -10,7 +10,6 @@
 
 class API {
 
-    public $url = API_URL_INFO;
     public $user = API_USER;
     public $pass = API_PASS;
     public $api;
@@ -30,7 +29,7 @@ class API {
             die('cURL not available!');
         }
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, "$this->url");
+        curl_setopt($curl, CURLOPT_URL, API_URL_INFO);
         curl_setopt($curl, CURLOPT_FAILONERROR, true);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -55,6 +54,43 @@ class API {
     }
     public function account(){
 
+    }
+
+    public function get($num, $offset){
+        $data = [
+            'request' => [
+                'num' => $num,
+                'offset' => $offset
+            ]
+        ];
+
+        $data = json_encode($data);
+        if(!function_exists('curl_init')) {
+            die('cURL not available!');
+        }
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, API_URL_GET);
+        curl_setopt($curl, CURLOPT_FAILONERROR, true);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+//// Send POST request instead of GET and transfer data
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_USERPWD, "$this->user:$this->pass");
+
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+//// Dont verify SSL certificate (eg. self-signed cert in testsystem)
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+        $output = curl_exec($curl);
+        if ($output === FALSE) {
+            echo 'An error has occurred: ' . curl_error($curl) . PHP_EOL;
+        }
+        else {
+            echo $output;
+        }
     }
 
 } 

@@ -47,14 +47,20 @@ class User
 
         sendSms($data['phone']);
         redirect('users/sms');
+
+
+
+
     }
 
     public function checkSmsCode($code){
         if($code == $_SESSION['sms_pass']){
             return true;
-        } else {
-            return false;
         }
+    }
+
+    public function checkPhone($phone){
+        $this->api->info($phone);
     }
 
 //    public function checkPassword($phone){
