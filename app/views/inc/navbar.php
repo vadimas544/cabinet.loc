@@ -12,7 +12,7 @@
             </ul>
 
             <ul class="navbar-nav mr-auto">
-                <?php if(isset($_SESSION['user_id'])): ?>
+                <?php if(!isset($_SESSION['user_id'])): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo URLROOT; ?>/users/logout">Logout <span class="sr-only">(current)</span></a>
                     </li>

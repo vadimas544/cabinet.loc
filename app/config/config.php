@@ -8,12 +8,12 @@
 
 //Params for API
 
-define('API_USER', 'test2');
-define('API_PASS', '654321');
-define('API_URL_UPDATE', 'http://213.160.158.90:9980/cds/client/update');
-define('API_URL_INFO', 'http://213.160.158.90:9980/cds/client/info');
-define('API_URL_ACCOUNT', 'http://213.160.158.90:9980/cds/client/account');
-define('API_URL_GET', 'http://213.160.158.90:9980/cds/client/get');
+define('API_USER', 'CabinetCity');
+define('API_PASS', 'VeniVidiVici');
+define('API_URL_UPDATE', 'http://213.160.158.80:9980/cds/client/update');
+define('API_URL_INFO', 'http://213.160.158.80:9980/cds/client/info');
+define('API_URL_ACCOUNT', 'http://213.160.158.80:9980/cds/client/account');
+define('API_URL_GET', 'http://213.160.158.80:9980/cds/client/get');
 
 //AppRoot
 define('APPROOT', dirname(dirname(__FILE__)));

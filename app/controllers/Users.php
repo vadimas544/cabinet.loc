@@ -1,5 +1,6 @@
 <?php
 
+error_reporting(0);
 
 class Users extends Controller
 {
@@ -110,14 +111,22 @@ class Users extends Controller
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
                 //Authentication by SMS
-                if( $this->userModel->register($data) ){
-//                    sendSms($data['phone']);
+//                if( $this->userModel->register($data) ){
+                    $code_client = $this->userModel->checkPhone($data['phone']);
+                        if($code_client) {
+                            $this->userModel->update($code_client, $data['phone'], $data['password']);
+                            //$this->userModel->update($data)
+                            flash('register_success', 'Вы успешно зарегистрировались и можете войти!');
+                            redirect('users/login');
+                        }else{
+                            die('Нужен пул адресов, и смотрим первый свободный код клиента(уточнить как найти этот код??) и делаем апдейт его ...');
+                        }
 //                    flash('register_success', 'Вы успешно зарегистрировались и можете войти!');
 //                    redirect('users/sms');
-
-                } else{
-                    die('Что-то пошло не так...');
-                }
+//
+//                } else{
+//                    die('Что-то пошло не так...');
+//                }
 
 
 
@@ -255,7 +264,8 @@ class Users extends Controller
 
             if(empty($data['code_error'])){
                 if($this->userModel->checkSmsCode($data['code'])){
-                    redirect('users/cabinet');
+                    //redirect('users/cabinet');
+                    return true;
                 }else{
                     $data['code_error'] = 'Невірний код!';
                     $this->view('users/sms', $data);

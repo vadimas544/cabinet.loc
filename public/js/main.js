@@ -1,7 +1,7 @@
 // alert('Hello');
-jQuery(function($){
-   $("#phone").mask("+38(999) 999-9999");
-});
+// jQuery(function($){
+//    $("#phone").mask("+38(999) 999-9999");
+// });
 
 let showPassword = document.querySelectorAll('.password-show');
 

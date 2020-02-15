@@ -43,15 +43,11 @@ class User
 //        }
 //    }
 
-    public function register($data){
-
-        sendSms($data['phone']);
-        redirect('users/sms');
-
-
-
-
-    }
+//    public function register($data){
+//
+//        sendSms($data['phone']);
+//         redirect('users/sms');
+//    }
 
     public function checkSmsCode($code){
         if($code == $_SESSION['sms_pass']){
@@ -60,7 +56,22 @@ class User
     }
 
     public function checkPhone($phone){
-        $this->api->info($phone);
+        $res = $this->api->info($phone);
+        $response = json_decode($res, true);
+
+        $code_client =$response['response']['client']['code_client'];
+
+        return $code_client;
+
+//        print_r('<pre>');
+//        var_dump($code_client);
+//        print_r('</pre>');
+        //die();
+    }
+
+    public function update($code_client, $phone, $password){
+        $this->api->update($code_client, $phone, $password);
+        var_dump($this->api);
     }
 
 //    public function checkPassword($phone){
