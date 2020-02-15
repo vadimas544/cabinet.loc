@@ -5,16 +5,16 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo URLROOT; ?>/users/register">На головну <span class="sr-only">(current)</span></a>
-                </li>
-            </ul>
+<!--            <ul class="navbar-nav ml-auto">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="--><?php //echo URLROOT; ?><!--/users/register">На головну <span class="sr-only">(current)</span></a>-->
+<!--                </li>-->
+<!--            </ul>-->
 
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav">
                 <?php if(!isset($_SESSION['user_id'])): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo URLROOT; ?>/users/logout">Logout <span class="sr-only">(current)</span></a>
+                        <a class="nav-link text-right" href="<?php echo URLROOT; ?>/users/logout">Logout <span class="sr-only">(current)</span></a>
                     </li>
                 <?php else: ?>
 <!--                <li class="nav-item">-->

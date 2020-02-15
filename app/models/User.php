@@ -74,10 +74,15 @@ class User
         var_dump($this->api);
     }
 
-//    public function checkPassword($phone){
-//        $this->api->info($phone);
-//        var_dump($this->api);
-//    }
+    public function getPassword($phone)
+    {
+        $res = $this->api->info($phone);
+        $response = json_decode($res, true);
+
+        $password = $response['response']['client']['password'];
+
+        return $password;
+    }
 
     //Register user
 //    public function register($data)
@@ -102,21 +107,19 @@ class User
 
     //Login User
 
-//    public function login($phone, $password)
-//    {
-//        $this->db->query('SELECT * FROM users WHERE phone= :phone');
-//        $this->db->bind('phone', $phone);
-//
-//        $row =$this->db->single();
-//
-//        //Password matches
-//        $hashed_password = $row->password;
-//        if(password_verify($password, $hashed_password)){
-//            return $row;
-//        }else{
-//            return false;
-//        }
-//    }
+    public function login($phone, $password)
+    {
+
+        $code_client = $this->checkPhone($phone);
+        $hashed_password = $this->getPassword($phone);
+
+        //Password matches
+        if(password_verify($password, $hashed_password)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
 //    public function sms($phone){

@@ -121,7 +121,7 @@ class Users extends Controller
                         }else{
                             die('Нужен пул адресов, и смотрим первый свободный код клиента(уточнить как найти этот код??) и делаем апдейт его ...');
                         }
-//                    flash('register_success', 'Вы успешно зарегистрировались и можете войти!');
+//                    flash('register_success', 'Ви успішно зареєструвались и можете увійти!');
 //                    redirect('users/sms');
 //
 //                } else{
@@ -163,7 +163,7 @@ class Users extends Controller
     public function login()
     {
         //Check for POST
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //Process form
 
             //Sanitize POST data
@@ -171,27 +171,27 @@ class Users extends Controller
 
             $data = [
                 'phone' => trim($_POST['phone']),
-//                'password' => trim($_POST['password']),
+                'password' => trim($_POST['password']),
                 'phone_error' => '',
-//                'password_error' => '',
+                'password_error' => '',
             ];
 
-              //Validate phone
-            if(empty($data['phone'])){
-                $data['phone_error'] = 'Пожалуйста введите номер телефона!';
+            //Validate phone
+            if (empty($data['phone'])) {
+                $data['phone_error'] = 'Будь-ласка введіть номер телефону!';
             }
 
-            //Check for user phone
-            if($this->userModel->findUserByPhone($data['phone'])){
-                //User found
-            }else{
-                $data['phone_error'] = 'Пользователя с таким номером не найдено';
-            }
+//            //Check for user phone
+//            if($this->userModel->checkPhone($data['phone'])){
+//                //User found
+//            }else{
+            /*                $data['phone_error'] = "Користувача з таким номером не знайдено. Необхідно пройти процедуру <a href='<?php echo URLROOT?>/users/login'>реєстрації</a>>!!!";*/
+//            }
 
             //Validate Password
-//            if(empty($data['password'])){
-//                $data['password_error'] = 'Пожалуйста введите пароль!';
-//            }
+            if (empty($data['password'])) {
+                $data['password_error'] = 'Будь-ласка введіть пароль!';
+            }
 
             //Check that password is not empty
 //            if($this->userModel->checkPassword($data['phone'])){
@@ -202,35 +202,61 @@ class Users extends Controller
 
             //Make sure errors are empty
 
-//            if(empty($data['phone_error']) && empty($data['password_error'])){
-//                //Validated
-//                //Check and set logged in user
+            if (empty($data['phone_error']) && empty($data['password_error'])) {
+                //Validated
+                if ($this->userModel->checkPhone($data['phone'])) {
+                    //User found
+                    $loggedInUser = $this->userModel->login($data['phone'], $data['password']);
+                    if ($loggedInUser) {
+                        //Create Session
+                        $this->createUserSession($loggedInUser);
+                        redirect('users/cabinet');
+                    } else {
+                        $data['password_error'] = 'Пароль невірний!';
+                        $this->view('users/login', $data);
+                    }
+                } else{
+                    $data['password_error'] = "Користувача з таким номером не знайдено. Необхідно пройти процедуру реєстрації!";
+                    $this->view('users/login', $data);
+                }
+
+                //Check and set logged in user
+
 //
-//                $loggedInUser = $this->userModel->login($data['phone'], $data['password']);
+
 //
-//                if($loggedInUser){
-//                    //Create Session
-//                    $this->createUserSession($loggedInUser);
+//                } else {
+//                    $data['password_error'] = 'Пароль невірний!';
+//                    $this->view('users/login', $data);
+//                }
+//                    //Init data
+//                    $data = [
+//                        'phone' => '',
+//                        'password' => '',
+//                        'phone_error' => '',
+//                        'password_error' => '',
+//                    ];
 //
-//                }else{
-//                    $data['password_error'] = 'Пароль неверный!';
+//
+//                    //Load view
 //                    $this->view('users/login', $data);
 //                }
 //
-//            }else{
-//                $this->view('users/login', $data);
-//            }
+//        }
+
+
+            } else{
+                $this->view('users/login', $data);
+            }
 
         }else{
             //Init data
             $data = [
-                'phone' => '',
-//                'password' => '',
-                'phone_error' => '',
-//                'password_error' => '',
-            ];
-
-
+                       'phone' => '',
+                        'password' => '',
+                        'phone_error' => '',
+                        'password_error' => '',
+                    ];
 
             //Load view
             $this->view('users/login', $data);
