@@ -116,7 +116,7 @@ class Users extends Controller
                         if($code_client) {
                             $this->userModel->update($code_client, $data['phone'], $data['password']);
                             //$this->userModel->update($data)
-                            flash('register_success', 'Вы успешно зарегистрировались и можете войти!');
+                            flash('register_success', 'Ви успішно зареєструвались і можете увійти!');
                             redirect('users/login');
                         }else{
                             die('Нужен пул адресов, и смотрим первый свободный код клиента(уточнить как найти этот код??) и делаем апдейт его ...');
@@ -320,7 +320,7 @@ class Users extends Controller
         $_SESSION['user_name'] = $user->name;
         $_SESSION['user_phone'] = $user->phone;
 
-        redirect('pages/index');
+        //redirect('pages/index');
 
     }
 
