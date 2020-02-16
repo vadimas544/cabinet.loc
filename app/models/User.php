@@ -84,6 +84,12 @@ class User
         return $password;
     }
 
+    public function cabinetInfo($phone){
+        $info = $this->api->info($phone);
+        $response = json_decode($info, true);
+        return $response;
+    }
+
     //Register user
 //    public function register($data)
 //    {
@@ -111,11 +117,18 @@ class User
     {
 
         $code_client = $this->checkPhone($phone);
+
         $hashed_password = $this->getPassword($phone);
+
+
+        $info = $this->api->info($phone);
+
+        $info = json_decode($info, true);
+
 
         //Password matches
         if(password_verify($password, $hashed_password)){
-            return true;
+            return $code_client;
         }else{
             return false;
         }

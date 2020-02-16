@@ -204,13 +204,17 @@ class Users extends Controller
 
             if (empty($data['phone_error']) && empty($data['password_error'])) {
                 //Validated
-                if ($this->userModel->checkPhone($data['phone'])) {
+                if ($code_client = $this->userModel->checkPhone($data['phone'])) {
+                    //var_dump($code_client);
                     //User found
                     $loggedInUser = $this->userModel->login($data['phone'], $data['password']);
+//                    echo '<pre>';
+//                    var_dump($loggedInUser);
+//                    die();
                     if ($loggedInUser) {
                         //Create Session
                         $this->createUserSession($loggedInUser);
-                        redirect('users/cabinet');
+                        //redirect('users/cabinet');
                     } else {
                         $data['password_error'] = 'Пароль невірний!';
                         $this->view('users/login', $data);
@@ -316,32 +320,38 @@ class Users extends Controller
 
     public function createUserSession($user)
     {
-        $_SESSION['user_id'] = $user->id;
-        $_SESSION['user_name'] = $user->name;
-        $_SESSION['user_phone'] = $user->phone;
+        $_SESSION['code_client'] = $user;
+//        $_SESSION['user_name'] = $user->name;
+//        $_SESSION['user_phone'] = $user->phone;
 
-        //redirect('pages/index');
+        redirect('users/cabinet');
 
     }
 
     public function cabinet(){
+        $code_client = $_SESSION['code_client'];
 
+        //echo $_SESSION['user_name'];
+        //die();
+        //$info = $this->userModel->info($_SESSION['user_phone']);
+        //var_dump($info);
+        //die();
 
 
         $this->view('users/cabinet');
     }
 
     public function logout(){
-        unset($_SESSION['user_id']);
-        unset($_SESSION['user_phone']);
-        unset($_SESSION['user_name']);
+        unset($_SESSION['code_client']);
+//        unset($_SESSION['user_phone']);
+//        unset($_SESSION['user_name']);
         session_destroy();
         redirect('users/login');
     }
 
     public function isLoggedIn()
     {
-        if(isset($_SESSION['user_id'])){
+        if(isset($_SESSION['code_client'])){
             return true;
         }else{
             return false;
