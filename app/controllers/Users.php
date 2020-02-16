@@ -111,8 +111,11 @@ class Users extends Controller
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
                 //Authentication by SMS
-                if( $this->userModel->register($data) ){
+                if( $reg_sms = $this->userModel->register($data) ){
+                    echo 1;
+                    //var_dump($reg_sms);
                     $code_client = $this->userModel->checkPhone($data['phone']);
+                    //var_dump($code_client);
                         if($code_client) {
                             $this->userModel->update($code_client, $data['phone'], $data['password']);
                             //$this->userModel->update($data)
@@ -122,7 +125,7 @@ class Users extends Controller
                             die('Нужен пул адресов, и смотрим первый свободный код клиента(уточнить как найти этот код??) и делаем апдейт его ...');
                         }
                     flash('register_success', 'Ви успішно зареєструвались и можете увійти!');
-                    redirect('users/sms');
+                    //redirect('users/sms');
 
                } else{die('Что-то пошло не так...');
                 }
@@ -292,7 +295,9 @@ class Users extends Controller
             }
 
             if(empty($data['code_error'])){
+
                 if($this->userModel->checkSmsCode($data['code'])){
+                    //echo 1;
                     //redirect('users/login');
                     return true;
                 }else{
@@ -300,6 +305,7 @@ class Users extends Controller
                     $this->view('users/sms', $data);
                 }
             } else {
+                $data['code_error'] = 'Redirect';
                 $this->view('users/sms', $data);
             }
 

@@ -11,7 +11,7 @@
                         <td><?= $data['response']['client']['name'] ?></td>
                         <td>
                             <div class="edit">
-                                <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
+                                <button type="button" class="btn" name="add" id="add" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
                                     <img src="<?php echo URLROOT;?>/public/img/icon_edit.png" alt="edit">
                                 </button>
 
@@ -25,16 +25,16 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form>
+                                                <form method="post" id="insert-form">
                                                     <div class="form-group">
-                                                        <label for="name" class="col-form-label">Ім'я:</label>
-                                                        <input type="text" class="form-control" id="name">
+                                                        <label for="name"  class="col-form-label">Ім'я:</label>
+                                                        <input type="text" class="form-control" id="name"><br />
+                                                        <input type="submit" name="insert" id="insert" value="Змінити" class="btn btn-primary">
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
-                                                <button type="button" class="btn btn-primary">Змінити</button>
                                             </div>
                                         </div>
                                     </div>

@@ -62,7 +62,7 @@ class User
         $code_client = $response['response']['client']['code_client'];
 
         return $code_client;
-        
+
 
 //        print_r('<pre>');
 //        var_dump($code_client);
