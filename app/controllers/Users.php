@@ -111,7 +111,7 @@ class Users extends Controller
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
                 //Authentication by SMS
-//                if( $this->userModel->register($data) ){
+                if( $this->userModel->register($data) ){
                     $code_client = $this->userModel->checkPhone($data['phone']);
                         if($code_client) {
                             $this->userModel->update($code_client, $data['phone'], $data['password']);
@@ -121,12 +121,11 @@ class Users extends Controller
                         }else{
                             die('Нужен пул адресов, и смотрим первый свободный код клиента(уточнить как найти этот код??) и делаем апдейт его ...');
                         }
-//                    flash('register_success', 'Ви успішно зареєструвались и можете увійти!');
-//                    redirect('users/sms');
-//
-//                } else{
-//                    die('Что-то пошло не так...');
-//                }
+                    flash('register_success', 'Ви успішно зареєструвались и можете увійти!');
+                    redirect('users/sms');
+
+               } else{die('Что-то пошло не так...');
+                }
 
 
 
@@ -294,7 +293,7 @@ class Users extends Controller
 
             if(empty($data['code_error'])){
                 if($this->userModel->checkSmsCode($data['code'])){
-                    //redirect('users/cabinet');
+                    //redirect('users/login');
                     return true;
                 }else{
                     $data['code_error'] = 'Невірний код!';
@@ -321,6 +320,8 @@ class Users extends Controller
     public function createUserSession($user)
     {
         $_SESSION['code_client'] = $user;
+//        echo $_SESSION['code_client'];
+//        die();
 //        $_SESSION['user_name'] = $user->name;
 //        $_SESSION['user_phone'] = $user->phone;
 
@@ -329,16 +330,13 @@ class Users extends Controller
     }
 
     public function cabinet(){
+
         $code_client = $_SESSION['code_client'];
-
-        //echo $_SESSION['user_name'];
-        //die();
-        //$info = $this->userModel->info($_SESSION['user_phone']);
-        //var_dump($info);
-        //die();
-
-
-        $this->view('users/cabinet');
+        //var_dump($code_client);
+        $data = $this->userModel->cabinetInfo($code_client);
+//        echo '<pre>';
+//        var_dump($data);
+        $this->view('users/cabinet', $data);
     }
 
     public function logout(){

@@ -8,7 +8,7 @@
                 <table class="table-cab">
                     <tr>
                         <td>Ім'я</td>
-                        <td>Вадим</td>
+                        <td><?= $data['response']['client']['name'] ?></td>
                         <td>
                             <div class="edit">
                                 <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
@@ -44,7 +44,7 @@
                     </tr>
                     <tr>
                         <td>Прізвище</td>
-<!--                        <td>--><?php //echo $data['surname']; ?><!--</td>-->
+                        <td><?= $data['response']['client']['surname'] ?></td>
 <!--                    </tr>-->
 <!--                    <tr >-->
 <!--                        <td>Змінити прізвища</td>-->
@@ -55,7 +55,7 @@
 <!--                    </tr>-->
                     <tr>
                         <td>По-батькові</td>
-<!--                        <td>--><?php //echo $data['patronymic']; ?><!--</td>-->
+                        <td><?= $data['response']['client']['patronymic'] ?></td>
                     </tr>
 <!--                    <tr>-->
 <!--                        <td>Стать</td>-->
@@ -74,19 +74,11 @@
 <!--                    </tr>-->
                     <tr>
                         <td>Дата народження</td>
-<!--                        <td>--><?php //echo $data['date_birth']; ?><!--</td>-->
+                        <td><?= $data['response']['client']['date_birth'] ?></td>
                     </tr>
                     <tr>
                         <td>Телефон</td>
-<!--                        <td>-->
-<!--                            --><?php
-//                            if(!empty($properties[1])){
-//                                echo $properties[1];
-//                            } else{
-//                                echo '-';
-//                            }
-//                            ?>
-<!--                        </td>-->
+                        <td><?= $data['response']['client']['phone'] ?></td>
                     </tr>
 <!--                    <tr>-->
 <!--                        <td>Зміна номера телефону</td>-->
@@ -97,17 +89,9 @@
 <!--                    </tr>-->
                     <tr>
                         <td>E-mail</td>
-<!--                        <td>-->
-<!--                            --><?php
-//                            if(!empty($properties[3])){
-//                                echo $properties[3];
-//                            } else{
-//                                echo '-';
-//                            }
-//                            ?>
-<!--                        </td>-->
+                        <td><?= $data['response']['client']['email'] ?></td>
                     </tr>
-<!--                    <tr>-->
+                    <tr>
 <!--                        <td>Змінити E-Mail</td>-->
 <!--                        <td>-->
 <!--                            <input name='email' id="email" type='text'>-->
@@ -134,7 +118,7 @@
                             Market
                         </h4>
                         <h4 class="card-text">Карта лояльності</h4>
-                        <p id="card-number">000401300001</p>
+                        <p id="card-number"><?= $data['response']['client']['barcode'][0]['barcode'] ?></p>
                         <h4 class="card-text-bottom">Карта лояльності</h4>
                     </div>
                 </div>
