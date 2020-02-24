@@ -11,7 +11,7 @@ function send_request($url, $json_value, $user, $password) {
     curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
     $output = curl_exec($ch);
     curl_close($ch);
-    //echo($output);
+    //echo $output;
 }
 
 function sendSms($phone){

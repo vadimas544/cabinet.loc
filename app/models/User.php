@@ -2,55 +2,31 @@
 
 class User
 {
-//    private $db;
     private $api;
 
     public function __construct()
     {
-//        $this->db = new Database();
         $this->api = new API();
     }
 
-    //find user by email
-//    public function findUserByEmail($email)
-//    {
-//        $this->db->query('SELECT * FROM users WHERE email= :email');
-//        $this->db->bind('email', $email);
-//
-//        $row =$this->db->single();
-//
-//        //Check row
-//        if($this->db->rowCount() > 0){
-//            return true;
-//        }else{
-//            return false;
-//        }
-//    }
-    
-    //find user by phone
-//    public function findUserByPhone($phone)
-//    {
-//        $this->db->query('SELECT * FROM users WHERE phone= :phone');
-//        $this->db->bind('phone', $phone);
-//
-//        $row =$this->db->single();
-//
-//        //Check row
-//        if($this->db->rowCount() > 0){
-//            return true;
-//        }else{
-//            return false;
-//        }
-//    }
-
     public function register($data){
 
-        sendSms($data['phone']);
-         redirect('users/sms');
+
+        //redirect('users/sms');
+    }
+
+    public function sendSms($phone){
+        echo 2;
+        sendSms($phone);
+        echo 1;
+        //redirect('users/sms');
+
     }
 
     public function checkSmsCode($code){
         if($code == $_SESSION['sms_pass']){
+            //echo 2;
+            //die();
             return true;
         }
     }

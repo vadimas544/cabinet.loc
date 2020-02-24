@@ -44,26 +44,6 @@ class Users extends Controller
             if(empty($data['phone'])){
                 $data['phone_error'] = 'Будь-ласка введіть телефон!';
             }
-//            else{
-//                //Check phone in DB
-//                if($this->userModel->findUserByPhone($data['phone'])){
-//                    $data['phone_error'] = 'Такой номер уже используется!';
-//
-//                }
-//            }
-
-            //If this number we have in database
-//            if($this->userModel->checkUserPhone($data['phone'])){
-//                //Then we update all fields
-//
-//            }
-
-
-            
-            //Validate email
-//            if(empty($data['email'])){
-//                $data['email_error'] = 'Пожалуйста введите email!';
-//            }
 
             //Validate Name
             if(empty($data['name'])){
@@ -74,16 +54,6 @@ class Users extends Controller
             if(empty($data['surname'])){
                 $data['surname_error'] = 'Будь-ласка введіть прізвище!';
             }
-            
-//            //Validate Patronymic
-//            if(empty($data['patronymic'])){
-//                $data['patronymic_error'] = 'Пожалуйста введите отчество!';
-//            }
-            
-            //Validate Birthday
-//            if(empty($data['birthday'])){
-//                $data['birthday_error'] = 'Пожалуйста введите дату рождения!';
-//            }
 
             //Validate Password
             if(empty($data['password'])){
@@ -109,27 +79,39 @@ class Users extends Controller
 
                 //Hash Password
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+                //Hash confirm password
+                $data['confirm_password'] = password_hash($data['confirm_password']);
 
                 //Authentication by SMS
-                if( $reg_sms = $this->userModel->register($data) ){
-                    echo 1;
-                    //var_dump($reg_sms);
-                    $code_client = $this->userModel->checkPhone($data['phone']);
-                    //var_dump($code_client);
-                        if($code_client) {
-                            $this->userModel->update($code_client, $data['phone'], $data['password']);
-                            //$this->userModel->update($data)
-                            flash('register_success', 'Ви успішно зареєструвались і можете увійти!');
-                            redirect('users/login');
-                        }else{
-                            die('Нужен пул адресов, и смотрим первый свободный код клиента(уточнить как найти этот код??) и делаем апдейт его ...');
-                        }
-                    flash('register_success', 'Ви успішно зареєструвались и можете увійти!');
-                    //redirect('users/sms');
 
-               } else{die('Что-то пошло не так...');
+                if( $this->userModel->sendSms($data['phone']) ){
+                        //Check Phone
+
+                } else {
+                        //Get Error - Wrong Format of number
+                        $data['phone_error'] = 'Wrong Format of number!!!';
+                        $this->view('users/register', $data);
                 }
-
+//
+//                if( $this->userModel->register($data) ){
+//                    echo 1;
+//                    //var_dump($reg_sms);
+//                    $code_client = $this->userModel->checkPhone($data['phone']);
+//                    //var_dump($code_client);
+//                        if($code_client) {
+//                            $this->userModel->update($code_client, $data['phone'], $data['password']);
+//                            //$this->userModel->update($data)
+//                            flash('register_success', 'Ви успішно зареєструвались і можете увійти!');
+//                            redirect('users/login');
+//                        }else{
+//                            die('Нужен пул адресов, и смотрим первый свободный код клиента(уточнить как найти этот код??) и делаем апдейт его ...');
+//                        }
+//                    flash('register_success', 'Ви успішно зареєструвались и можете увійти!');
+//                    //redirect('users/sms');
+//
+//               } else{die('Что-то пошло не так...');
+//                }
+//
 
 
             }else{
@@ -298,14 +280,15 @@ class Users extends Controller
 
                 if($this->userModel->checkSmsCode($data['code'])){
                     //echo 1;
-                    //redirect('users/login');
-                    return true;
+                    flash('register_success', 'Ви успішно зареєструвались і можете увійти!');
+                    redirect('users/login');
+                    //return true;
                 }else{
                     $data['code_error'] = 'Невірний код!';
                     $this->view('users/sms', $data);
                 }
             } else {
-                $data['code_error'] = 'Redirect';
+                $data['code_error'] = 'Введіть будь-ласка код!';
                 $this->view('users/sms', $data);
             }
 
