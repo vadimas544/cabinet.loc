@@ -63,8 +63,8 @@
                     </tr>
                     <tr>
                         <td >
-                            <div class="edit text-left">
-                                <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">
+                            <div class="text-left">
+                                <button type="button" class="btn btn-secondary btn-lg btn-block edit" name="edit" id="<?= $data['response']['client']['code_client'] ?>" data-toggle="modal" data-target="#exampleModal">
 <!--                                   <img src="--><?php //////echo URLROOT;?><!--/public/img/icon_edit.png" alt="edit">-->
                                     Редагувати дані
                                 </button>
