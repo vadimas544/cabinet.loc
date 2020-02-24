@@ -10,36 +10,6 @@
                         <td>Ім'я</td>
                         <td><?= $data['response']['client']['name'] ?></td>
                         <td>
-                            <div class="edit">
-                                <button type="button" class="btn" name="add" id="add" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
-                                    <img src="<?php echo URLROOT;?>/public/img/icon_edit.png" alt="edit">
-                                </button>
-
-                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Введіть нове ім'я:</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form method="post" id="insert-form">
-                                                    <div class="form-group">
-                                                        <label for="name"  class="col-form-label">Ім'я:</label>
-                                                        <input type="text" class="form-control" id="name"><br />
-                                                        <input type="submit" name="insert" id="insert" value="Змінити" class="btn btn-primary">
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -92,19 +62,48 @@
                         <td><?= $data['response']['client']['email'] ?></td>
                     </tr>
                     <tr>
-<!--                        <td>Змінити E-Mail</td>-->
-<!--                        <td>-->
-<!--                            <input name='email' id="email" type='text'>-->
-<!--                            <button id="change_email" class="btn-md">Змінити</button>-->
-<!--                        </td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>Змінити пароль</td>-->
-<!--                        <td>-->
-<!--                            <input name='pwd' type='pwd' id="pwd" maxlength='20'>-->
-<!--                            <button id="change_pwd" class="btn-md">Змінити</button>-->
-<!--                        </td>-->
-<!--                    </tr>-->
+                        <td >
+                            <div class="edit text-left">
+                                <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">
+<!--                                   <img src="--><?php //////echo URLROOT;?><!--/public/img/icon_edit.png" alt="edit">-->
+                                    Редагувати дані
+                                </button>
+
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Зміна персональних даних:</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="post" id="insert-form">
+                                                    <div class="form-group">
+                                                        <label for="name"  class="col-form-label">Ім'я:</label>
+                                                        <input type="text" class="form-control" id="name"><br />
+                                                        <label for="surname"  class="col-form-label">Прізвище:</label>
+                                                        <input type="text" class="form-control" id="surname"><br />
+                                                        <label for="patronymic"  class="col-form-label">По-батькові:</label>
+                                                        <input type="text" class="form-control" id="patronymic"><br />
+                                                        <label for="date_birth"  class="col-form-label">Дата народження:</label>
+                                                        <input type="text" class="form-control" id="date_birth"><br />
+                                                        <label for="phone"  class="col-form-label">Телефон:</label>
+                                                        <input type="text" class="form-control" id="phone"><br />
+                                                        <label for="email"  class="col-form-label">E-mail:</label>
+                                                        <input type="text" class="form-control" id="email"><br />
+                                                        <input type="submit" name="insert" id="insert" value="Змінити" class="btn btn-primary">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
                 </table>
             </div>
         </div>
